@@ -15,17 +15,16 @@ app.get("/", function(req, res) {
 });
 
 app.get("/portfolio", function(req, res) {
-  const keys = process.env;
   const sheetInd = req.query.sheet;
-  console.log(keys);
-  const doc = new GoogleSpreadsheet(keys.G_SHEET);
+  console.log(process.env);
+  const doc = new GoogleSpreadsheet(process.env.G_SHEET);
   (async() => {
     await doc.useServiceAccountAuth({
-        client_email: keys.G_SHEET_EMAIL,
-        private_key: keys.G_SHEET_KEY
+        client_email: process.env.G_SHEET_EMAIL,
+        private_key: process.env.G_SHEET_KEY
     });
     await doc.loadInfo();
-    const sheet = doc.sheetsByIndex[sheetInd];
+    const sheet = await doc.sheetsByIndex[sheetInd];
     await sheet.loadHeaderRow();
     const cols = sheet.headerValues;
     const rows = await sheet.getRows();
