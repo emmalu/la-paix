@@ -1,7 +1,9 @@
 const express = require("express");
 const { GoogleSpreadsheet } = require('google-spreadsheet');
 
-require("dotenv").config();
+if (process.env.NODE_ENV !== 'PROD') {
+  require('dotenv').config();
+}
 
 const PORT = process.env.PORT || 3000;
 
@@ -61,3 +63,4 @@ app.get("/portfolio", function(req, res) {
 
 app.listen(PORT);
 console.log(`API is listening on: ${PORT}`);
+console.log(`The node ENV is: ${process.env.NODE_ENV}`);
