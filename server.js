@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const { GoogleSpreadsheet } = require('google-spreadsheet');
 
 if (process.env.NODE_ENV !== 'PROD') {
@@ -16,7 +17,7 @@ app.get("/", function(req, res) {
   res.end("Welcome to LA PAIX. If you're here, you might be lost.");
 });
 
-app.get("/portfolio", function(req, res) {
+app.get("/portfolio", cors(), function(req, res) {
   const sheetInd = req.query.sheet;
   console.log(process.env);
   const doc = new GoogleSpreadsheet(process.env.G_SHEET);
