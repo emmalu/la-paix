@@ -54,7 +54,7 @@ app.get("/portfolio", function(req, res) {
       res.setHeader('Content-Type', 'application/json');
       res.end(JSON.stringify({ sheetData }));
     } catch (err) {
-      res.send("There's been an error querying the data. Please try again later.");
+      res.send(err, "There's been an error querying the data. Please try again later.");
     }
   }
 });
