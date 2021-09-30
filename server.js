@@ -18,7 +18,7 @@ app.get("/", function(req, res) {
 
 app.get("/portfolio", function(req, res) {
   const sheetInd = req.query.sheet;
-  //console.log(process.env);
+  console.log(process.env);
   const doc = new GoogleSpreadsheet(process.env.G_SHEET);
   getData()
     .then(() => {
@@ -32,7 +32,7 @@ app.get("/portfolio", function(req, res) {
     try {
       await doc.useServiceAccountAuth({
           client_email: process.env.G_SHEET_EMAIL,
-          private_key: process.env.G_SHEET_KEY
+          private_key: process.env.G_SHEET_KEY.replace(/\\n/gm, '\n')
       });
       await doc.loadInfo();
       const sheet = await doc.sheetsByIndex[sheetInd];
